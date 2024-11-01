@@ -23,7 +23,7 @@ app.get("/app", (req, res) => {
   const eventID = req.query.eventID;
   const role = req.query.role;
 
-  const appLink = `snapfetti://app/12356/temp`;
+  const appLink = `snapfetti://app?eventID=${eventID}&role=${role}`;
   const playStoreLink =
     "https://play.google.com/store/apps/details?id=com.snapfetti"; // Android app link
   const appStoreLink = "https://apps.apple.com/us/app/snapfetti/id6478379770"; // Replace with your App Store link
