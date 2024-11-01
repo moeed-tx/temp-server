@@ -9,7 +9,6 @@ app.use(
   })
 );
 app.options("*", cors());
-
 app.use(require("body-parser").json());
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server Running" });
@@ -22,7 +21,7 @@ app.get("/app", (req, res) => {
   const eventID = req.query.eventID;
   const role = req.query.role;
 
-  const appLink = `snapfetti://app/${eventID}/${role}`;
+  const appLink = `snapfetti://app/12356/temp`;
   const appStoreLink =
     "https://play.google.com/store/apps/details?id=com.snapfetti"; // Android app link
 
