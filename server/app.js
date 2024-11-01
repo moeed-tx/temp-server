@@ -26,7 +26,7 @@ app.get("/app", (req, res) => {
   const appLink = `snapfetti://app/12356/temp`;
   const playStoreLink =
     "https://play.google.com/store/apps/details?id=com.snapfetti"; // Android app link
-  const appStoreLink = "https://apps.apple.com/app/snapfetti"; // Replace with your App Store link
+  const appStoreLink = "https://apps.apple.com/us/app/snapfetti/id6478379770"; // Replace with your App Store link
 
   // Serve HTML with JavaScript for redirection
   res.send(`
