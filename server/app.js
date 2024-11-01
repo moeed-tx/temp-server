@@ -11,8 +11,10 @@ app.use(
 app.options("*", cors());
 
 app.use(require("body-parser").json());
-
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Server Running" });
+});
+app.get("/health", (req, res) => {
   res.status(200).json({ message: "Server Running" });
 });
 
