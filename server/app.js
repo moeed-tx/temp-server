@@ -11,7 +11,9 @@ app.use(
 app.options("*", cors());
 app.use(require("body-parser").json());
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Server Running" });
+  // res.status(200).json({ message: "Server Running" });
+  // res.status(304).json({ message: "Server Running" });
+  res.redirect("/app");
 });
 app.get("/health", (req, res) => {
   res.status(200).json({ message: "Server Running" });
@@ -22,8 +24,9 @@ app.get("/app", (req, res) => {
   const role = req.query.role;
 
   const appLink = `snapfetti://app/12356/temp`;
-  const appStoreLink =
+  const playStoreLink =
     "https://play.google.com/store/apps/details?id=com.snapfetti"; // Android app link
+  const appStoreLink = "https://apps.apple.com/app/idYOUR_APP_ID"; // Replace with your App Store link
 
   // Serve HTML with JavaScript for redirection
   res.send(`
@@ -37,13 +40,33 @@ app.get("/app", (req, res) => {
     <body>
       <p>Redirecting to the app...</p>
       <script type="text/javascript">
-        // Attempt to open the app link
-        window.location.href = "${appLink}";
-        
-        // Fallback to the app store after a delay if app link fails
-        setTimeout(() => {
-          window.location.href = "${appStoreLink}";
-        }, 2000);
+        // Function to detect if the user is on iOS or Android
+        function getMobileOperatingSystem() {
+          const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+          if (/android/i.test(userAgent)) {
+            return "android";
+          } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return "ios";
+          }
+          return "other";
+        }
+
+        // Redirect to app
+        const os = getMobileOperatingSystem();
+        setTimeout(function() {
+          window.location.href = "${appLink}";
+        }, 100);
+
+        // Fallback based on device OS
+        setTimeout(function() {
+          if (os === "android") {
+            window.location.href = "${playStoreLink}";
+          } else if (os === "ios") {
+            window.location.href = "${appStoreLink}";
+          } else {
+            window.location.href = "https://example.com"; // A fallback URL for other devices
+          }
+        }, 2000); // Adjust delay as needed
       </script>
     </body>
     </html>
