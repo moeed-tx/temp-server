@@ -11,8 +11,6 @@ app.use(
 app.options("*", cors());
 app.use(require("body-parser").json());
 app.get("/", (req, res) => {
-  // res.status(200).json({ message: "Server Running" });
-  // res.status(304).json({ message: "Server Running" });
   res.redirect("/app");
 });
 app.get("/health", (req, res) => {
@@ -23,10 +21,9 @@ app.get("/app", (req, res) => {
   const eventID = req.query.eventID;
   const role = req.query.role;
 
-  const appLink = `snapfetti://app?eventID=${eventID}&role=${role}`;
-  const playStoreLink =
-    "https://play.google.com/store/apps/details?id=com.snapfetti"; // Android app link
-  const appStoreLink = "https://apps.apple.com/us/app/snapfetti/id6478379770"; // Replace with your App Store link
+  const appLink = `${process.env.APP_NAME}://app?eventID=${eventID}&role=${role}`;
+  const playStoreLink = process.env.ANDROID_APP_LINK; // Android app link
+  const appStoreLink = process.env.APPLE_APP_LINK; // Replace with your App Store link
 
   // Serve HTML with JavaScript for redirection
   res.send(`
