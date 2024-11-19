@@ -21,7 +21,8 @@ app.get("/app", (req, res) => {
   const eventID = req.query.eventID;
   const role = req.query.role;
 
-  const appLink = `${process.env.APP_NAME}://app?eventID=${eventID}&role=${role}`;
+  const androidAppLink = `${process.env.APP_NAME}://app?eventID=${eventID}&role=${role}`;
+  const appleAppLink = `${process.env.IOS_APP_NAME}://app?eventID=${eventID}&role=${role}`;
   const playStoreLink = process.env.ANDROID_APP_LINK; // Android app link
   const appStoreLink = process.env.APPLE_APP_LINK; // Replace with your App Store link
 
@@ -51,7 +52,10 @@ app.get("/app", (req, res) => {
         // Redirect to app
         const os = getMobileOperatingSystem();
         setTimeout(function() {
-          window.location.href = "${appLink}";
+        if(os == "ios")
+          window.location.href = "${appleAppLink}";
+        if(os == "android")
+          window.location.href = "${androidAppLink}";
         }, 100);
 
         // Fallback based on device OS
