@@ -67,7 +67,7 @@ app.get("/app", (req, res) => {
           } else {
             window.location.href = "https://example.com"; // A fallback URL for other devices
           }
-        }, 10000); // Adjust delay as needed
+        }, 5000); // Adjust delay as needed
       </script>
     </body>
     </html>
